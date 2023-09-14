@@ -29,7 +29,6 @@ class App extends Component {
     }
   }
   
-
   handleFilterChange = (e) => {
     const { value } = e.target;
     this.setState({ filter: value });
