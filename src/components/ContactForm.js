@@ -14,7 +14,7 @@ class ContactForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { name, number } = this.state;
-    this.props.onAddContact({ name, number });
+    this.props.onAddContact(name, number); // Зміна на передачу name та number окремо
     this.setState({ name: '', number: '' });
   };
 
