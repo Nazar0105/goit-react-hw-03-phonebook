@@ -12,7 +12,6 @@ class App extends Component {
   };
 
   componentDidMount() {
-    // Завантаження даних з localStorage при завантаженні сторінки
     const savedContacts = localStorage.getItem('contacts');
 
     if (savedContacts) {
@@ -21,7 +20,6 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // Збереження даних в localStorage при зміні стану контактів
     if (prevState.contacts !== this.state.contacts) {
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
     }
@@ -35,7 +33,6 @@ class App extends Component {
   handleAddContact = (name, number) => {
     const { contacts } = this.state;
 
-    // Перевіряємо, чи існує контакт з таким іменем вже в книзі
     const isContactExists = contacts.some((contact) => contact.name === name);
 
     if (isContactExists) {
@@ -62,6 +59,9 @@ class App extends Component {
 
   render() {
     const { contacts, filter } = this.state;
+    const filteredContacts = contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
 
     return (
       <div className={styles.container}>
@@ -70,9 +70,7 @@ class App extends Component {
         <h2>Contacts</h2>
         <Filter value={filter} onChange={this.handleFilterChange} />
         <ContactList
-          contacts={contacts.filter((contact) =>
-            contact.name.toLowerCase().includes(filter.toLowerCase())
-          )}
+          contacts={filteredContacts}
           onDeleteContact={this.handleDeleteContact}
         />
       </div>
@@ -81,4 +79,3 @@ class App extends Component {
 }
 
 export default App;
-
